@@ -1,0 +1,6 @@
+.manifest
+.testlog
+.dll
+.cache
+.pdb
+.exe

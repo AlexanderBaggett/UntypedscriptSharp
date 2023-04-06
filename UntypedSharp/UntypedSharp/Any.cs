@@ -1,42 +1,49 @@
 ﻿using System.Dynamic;
+using System.Reflection;
 
+//TODO unit tests, arrays, queue features
 namespace UntypedSharp
 {
-    public class Any
+    public partial class Any
     {
         public readonly object Value;
-
-        private Dictionary<string, object> addHocProperties = new Dictionary<string, object>();
 
         public Any(object value)
         {
             Value = value;
-            addHocProperties.Add(value.ToString(), value);
+            if(value != null)
+            {
+                addHocProperties.Add(value.ToString(), value);
+            }
         }
-        public object this [string key]
+        private Dictionary<string, object> addHocProperties = new Dictionary<string, object>();
+
+        public object this[string key]
         {
-            get => addHocValue(key);
-            set => setAddhocValue(key, value);
+            get => getAdhocValue(key);
+            set => setAdhocValue(key, value);
         }
 
-        private object addHocValue(string key)
+        private object getAdhocValue(string key)
         {
-            if(addHocProperties.ContainsKey(key))
+            if (!string.IsNullOrWhiteSpace(key) && addHocProperties.ContainsKey(key))
             {
                 return addHocProperties[key];
             }
             return null;
         }
 
-        private void setAddhocValue(string key, object value)
+        private void setAdhocValue(string key, object value)
         {
+            if (string.IsNullOrWhiteSpace(key)) return;
+
             if (addHocProperties.ContainsKey(key))
             {
                 addHocProperties[key] = value;
             }
             else
             {
-                addHocProperties.Add(key, value); 
+                addHocProperties.Add(key, value);
             }
         }
 
@@ -46,24 +53,12 @@ namespace UntypedSharp
         {
             var type = this.Value.GetType();
 
-            if(this.Value is Array array)
+            if (this.Value is Array array)
             {
                 return array.Length;
             }
             return 0;
         }
-
-
-        // Constructors for various primitive types and object type
-        public Any(int value) : this((object)value) { }
-        public Any(double value) : this((object)value) { }
-        public Any(float value) : this((object)value) { }
-        public Any(decimal value) : this((object)value) { }
-        public Any(long value) : this((object)value) { }
-        public Any(bool value) : this((object)value) { }
-        public Any(string value) : this((object)value) { }
-
-        public Any(DateTime value) : this((object)value) { }
 
         // Implicit operators for various primitive types and object type
         public static implicit operator Any(int value) => new Any(value);
@@ -74,6 +69,9 @@ namespace UntypedSharp
         public static implicit operator Any(bool value) => new Any(value);
         public static implicit operator Any(string value) => new Any(value);
         public static implicit operator Any(DateTime value) => new Any(value);
+        public static implicit operator Any(DateTimeOffset value) => new Any(value);
+        public static implicit operator Any(DateTimeKind value) => new Any(value);
+        public static implicit operator Any(Guid value) => new Any(value);
 
 
         public static implicit operator int(Any any) => (int)any.Value;
@@ -85,7 +83,7 @@ namespace UntypedSharp
         public static implicit operator DateTime(Any any) => (DateTime)any.Value;
 
 
-        public static implicit operator bool (Any any) => IsFalsy(any);
+        public static implicit operator bool(Any any) => !IsFalsy(any);
 
         private static bool IsFalsy(Any any)
         {
@@ -95,26 +93,23 @@ namespace UntypedSharp
 
             if (value == null) return true;
 
-            var isEmptyString =  any.Value is string && string.IsNullOrEmpty(any.Value.ToString());
+            var isEmptyString = any.Value is string && string.IsNullOrEmpty(any.Value.ToString());
             var isFalseString = any.Value is string && any.Value.ToString().Trim().ToLower() == "false";
+            var isFalse = value is bool tg && tg == false;
             var isZeroString = value is string && value.ToString().Trim().ToLower() == "0";
             var isNumber = any.Value is int || any.Value is long || any.Value is double || any.Value is decimal || any.Value is float;
-            var isZero = isNumber && (double) any.Value == 0;
+            var isZero = isNumber && Convert.ToDouble(any.Value) == 0;
 
-            return  isEmptyString || isFalseString || isZeroString || isZero;
+            return  isFalse || isEmptyString || isFalseString || isZeroString || isZero;
 
         }
-
-
-
-
 
         public T To<T>()
         {
             return (T)Value;
         }
     }
-    public class Any<T>
+    public partial class Any<T>
     {
         public Any()
         {
@@ -123,6 +118,10 @@ namespace UntypedSharp
         public Any(T value)
         {
             Value = value;
+            if (value != null)
+            {
+                addHocProperties.Add(value.ToString(), value);
+            }
         } 
 
         public T Value { get; set; }
@@ -131,21 +130,23 @@ namespace UntypedSharp
 
         public object this[string key]
         {
-            get => addHocValue(key);
-            set => setAddhocValue(key, value);
+            get => getAdhocValue(key);
+            set => setAdhocValue(key, value);
         }
 
-        private object addHocValue(string key)
+        private object getAdhocValue(string key)
         {
-            if (addHocProperties.ContainsKey(key))
+            if (!string.IsNullOrWhiteSpace(key) && addHocProperties.ContainsKey(key))
             {
                 return addHocProperties[key];
             }
             return null;
         }
 
-        private void setAddhocValue(string key, object value)
+        private void setAdhocValue(string key, object value)
         {
+            if (string.IsNullOrWhiteSpace(key)) return;
+
             if (addHocProperties.ContainsKey(key))
             {
                 addHocProperties[key] = value;
@@ -156,13 +157,11 @@ namespace UntypedSharp
             }
         }
 
-        public long Length { get => calculateLength<T>(); }
+        public long Length { get => calculateLength(); }
 
-        private long calculateLength<T>()
+        private long calculateLength()
         {
-            Type type = typeof(T);
-
-            if (this.Value is Array array)
+            if (Value is Array array)
             {
                 return array.Length;
             }
@@ -170,9 +169,26 @@ namespace UntypedSharp
             return 0;
         }
 
-
         public static implicit operator Any<T>(T value) => new Any<T>(value);
-        public static implicit operator bool (Any<T> any) => IsFalsy(any);
+        public static implicit operator bool (Any<T> any) => !IsFalsy(any);
+        public static implicit operator Any(Any<T> value) => new Any(value.Value);
+        public static implicit operator Any<T>(Any value) => bullshittery(value.Value);
+
+        private static Any<T> bullshittery(object value)
+        {
+            var Valuetype = value.GetType();
+
+
+            Type AnyGenericType = typeof(Any<>);
+
+            // Create the specific type by combining the generic type definition with the actual runtime type
+            Type AnySpecificType = AnyGenericType.MakeGenericType(Valuetype);
+
+            // Create an instance of the specific type
+            Any<T> any = (Any<T>)Activator.CreateInstance(AnySpecificType,value);
+
+            return any;
+        }
 
         private static bool IsFalsy(Any<T> any)
         {
@@ -185,13 +201,20 @@ namespace UntypedSharp
 
             var isEmptyString = value is string && string.IsNullOrEmpty(value.ToString());
             var isFalseString =  value is string && value.ToString().Trim().ToLower() == "false";
+            var isFalse = value is bool tg && tg == false;
             var isZeroString =  value is string && value.ToString().Trim().ToLower() == "0";
             var isNumber = value is int || value is long || value is double || value is decimal || value is float;
 
-            double x = new Any(value);
-            var isZero = isNumber && x == 0;
+            if(isNumber)
+            {
+                //next-level bullshittery
+                double x = Convert.ToDouble(value);
+                var isZero = x == 0;
 
-            return isEmptyString || isFalseString || isZeroString || isZero;
+                if(isZero) return true;
+            }
+
+            return isFalse || isEmptyString || isFalseString || isZeroString;
 
         }
 

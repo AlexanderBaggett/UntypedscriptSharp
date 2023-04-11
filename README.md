@@ -13,5 +13,5 @@
  
  
  ## If (any)
- We can simulate falsy checking in Javascript in C# and .Net
+ We can simulate falsy checking in Javascript with C# and .Net
  

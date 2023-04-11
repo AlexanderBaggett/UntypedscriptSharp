@@ -1,9 +1,4 @@
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\CoverletSourceRootsMapping
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.csproj.AssemblyReference.cache
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.AssemblyInfoInputs.cache
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.AssemblyInfo.cs
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.csproj.CoreCompileInputs.cache
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\testhost.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\testhost.exe
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -94,9 +89,14 @@ C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.pdb
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.csproj.AssemblyReference.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.AssemblyInfoInputs.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.AssemblyInfo.cs
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.csproj.CoreCompileInputs.cache
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.csproj.CopyComplete
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.dll
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\ref\UntypedSharp.Tests.dll
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\refint\UntypedSharp.Tests.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.pdb
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.genruntimeconfig.cache
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\refint\UntypedSharp.Tests.dll
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\ref\UntypedSharp.Tests.dll

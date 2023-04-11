@@ -13,7 +13,6 @@ C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.Tests.deps.json
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.Tests.runtimeconfig.json
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.Tests.dll
-C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\ref\UntypedSharp.Tests.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\UntypedSharp.Tests.pdb
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\bin\Debug\net6.0\Microsoft.TestPlatform.CoreUtilities.dll
@@ -100,3 +99,4 @@ C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\ref\UntypedSharp.Tests.dll
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.pdb
 C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\UntypedSharp.Tests.genruntimeconfig.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp.Tests\obj\Debug\net6.0\refint\UntypedSharp.Tests.dll

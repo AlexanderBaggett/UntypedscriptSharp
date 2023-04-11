@@ -17,10 +17,10 @@ namespace UntypedSharp.Tests
         [InlineData(default(int), default(bool))]
         [InlineData(default(double), default(bool))]
         [InlineData(default(bool), default(bool))]
-        public void CanAddPropertyViaIndexer<T1,T2>(T1 propertyValue, T2 anyValue)
+        public void CanAddPropertyViaIndexer<T1, T2>(T1 propertyValue, T2 anyValue)
         {
             Any any = new Any(anyValue);
-            
+
             var propertyName = "new Property";
 
             any[propertyName] = propertyValue;

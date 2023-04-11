@@ -1,5 +1,7 @@
 # UntypedSharp
 
+### A strongly untyped framework
+
 
  UntypedSharped is a compact micro-framework to bring untyped javascript features to the .NET world
  

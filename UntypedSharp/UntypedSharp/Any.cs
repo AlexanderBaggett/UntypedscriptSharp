@@ -16,36 +16,7 @@ namespace UntypedSharp
                 addHocProperties.Add(value.ToString(), value);
             }
         }
-        private Dictionary<string, object> addHocProperties = new Dictionary<string, object>();
-
-        public object this[string key]
-        {
-            get => getAdhocValue(key);
-            set => setAdhocValue(key, value);
-        }
-
-        private object getAdhocValue(string key)
-        {
-            if (!string.IsNullOrWhiteSpace(key) && addHocProperties.ContainsKey(key))
-            {
-                return addHocProperties[key];
-            }
-            return null;
-        }
-
-        private void setAdhocValue(string key, object value)
-        {
-            if (string.IsNullOrWhiteSpace(key)) return;
-
-            if (addHocProperties.ContainsKey(key))
-            {
-                addHocProperties[key] = value;
-            }
-            else
-            {
-                addHocProperties.Add(key, value);
-            }
-        }
+     
 
         public long Length { get => calculateLength(); }
 
@@ -85,24 +56,7 @@ namespace UntypedSharp
 
         public static implicit operator bool(Any any) => !IsFalsy(any);
 
-        private static bool IsFalsy(Any any)
-        {
-            if (any == null) return true;
-
-            var value = any.Value;
-
-            if (value == null) return true;
-
-            var isEmptyString = any.Value is string && string.IsNullOrEmpty(any.Value.ToString());
-            var isFalseString = any.Value is string && any.Value.ToString().Trim().ToLower() == "false";
-            var isFalse = value is bool tg && tg == false;
-            var isZeroString = value is string && value.ToString().Trim().ToLower() == "0";
-            var isNumber = any.Value is int || any.Value is long || any.Value is double || any.Value is decimal || any.Value is float;
-            var isZero = isNumber && Convert.ToDouble(any.Value) == 0;
-
-            return  isFalse || isEmptyString || isFalseString || isZeroString || isZero;
-
-        }
+     
 
         public T To<T>()
         {
@@ -124,39 +78,7 @@ namespace UntypedSharp
             }
         } 
 
-        public T Value { get; set; }
-
-        private Dictionary<string, object> addHocProperties = new Dictionary<string, object>();
-
-        public object this[string key]
-        {
-            get => getAdhocValue(key);
-            set => setAdhocValue(key, value);
-        }
-
-        private object getAdhocValue(string key)
-        {
-            if (!string.IsNullOrWhiteSpace(key) && addHocProperties.ContainsKey(key))
-            {
-                return addHocProperties[key];
-            }
-            return null;
-        }
-
-        private void setAdhocValue(string key, object value)
-        {
-            if (string.IsNullOrWhiteSpace(key)) return;
-
-            if (addHocProperties.ContainsKey(key))
-            {
-                addHocProperties[key] = value;
-            }
-            else
-            {
-                addHocProperties.Add(key, value);
-            }
-        }
-
+      
         public long Length { get => calculateLength(); }
 
         private long calculateLength()
@@ -189,34 +111,5 @@ namespace UntypedSharp
 
             return any;
         }
-
-        private static bool IsFalsy(Any<T> any)
-        {
-
-            if (any == null) return true;
-
-            var value = any.Value;
-
-            if (value == null) return true;
-
-            var isEmptyString = value is string && string.IsNullOrEmpty(value.ToString());
-            var isFalseString =  value is string && value.ToString().Trim().ToLower() == "false";
-            var isFalse = value is bool tg && tg == false;
-            var isZeroString =  value is string && value.ToString().Trim().ToLower() == "0";
-            var isNumber = value is int || value is long || value is double || value is decimal || value is float;
-
-            if(isNumber)
-            {
-                //next-level bullshittery
-                double x = Convert.ToDouble(value);
-                var isZero = x == 0;
-
-                if(isZero) return true;
-            }
-
-            return isFalse || isEmptyString || isFalseString || isZeroString;
-
-        }
-
     }
 }

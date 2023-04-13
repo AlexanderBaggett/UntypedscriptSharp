@@ -46,369 +46,102 @@ namespace UntypedSharp
             objType.GetGenericTypeDefinition() == anytype;
 
         }
+        internal static bool IsBool(object obj) =>  obj is bool;
 
-        internal static bool IsNumber(object obj)
-        {
-            return !(obj is string) && Information.IsNumeric(obj);
-        }
+        internal static bool AsBool(object obj) => (bool)obj;
+
+        internal static bool IsDate(object obj) =>  obj is DateTime || obj is DateTimeOffset;
+
+        internal static DateTimeOffset AsDate(object obj) => (DateTimeOffset)obj;
+        internal static bool IsNumber(object obj) => !(obj is string) && !(obj is bool) && Information.IsNumeric(obj);
+
         internal static decimal AsNumber(object obj) => Convert.ToDecimal(obj);
 
-        internal static bool IsString(object obj) => obj is string;
+        internal static bool IsString(object obj) => IsNull(obj) ? true :  obj is string;
+
+        internal static string AsString(object obj) => obj.ToString();
+
+        internal static bool IsNull(object obj) => obj == null;
+
+
+        internal static bool IsFalsy(object any)
+        {
+
+            if (any == null) return true;
+
+            var value = any;
+
+            var isEmptyString = any is string && string.IsNullOrEmpty(value.ToString());
+            var isFalseString = any is string && value.ToString().Trim().ToLower() == "false";
+            var isFalse = value is bool tg && tg == false;
+            var isZeroString = value is string && value.ToString().Trim().ToLower() == "0";
+
+            if (IsNumber(any))
+            {
+                //next-level bullshittery
+                double x = Convert.ToDouble(value);
+                var isZero = x == 0;
+
+                if (isZero) return true;
+            }
+
+            return isFalse || isEmptyString || isFalseString || isZeroString;
+
+        }
 
         internal object GetValue()
         {
             var x = this as dynamic;
             return x.Value;
         }
+        /// <summary>
+        /// //
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        internal static bool IsBool(AnyHelpers obj) => obj.GetValue() is bool;
+        internal static bool AsBool(AnyHelpers obj) => (bool)obj.GetValue();
+
+        internal static bool IsDate(AnyHelpers obj) => obj.GetValue() is DateTime || obj.GetValue() is DateTimeOffset;
+
+        internal static DateTimeOffset AsDate(AnyHelpers obj) => (DateTimeOffset)obj.GetValue();
+        internal static bool IsNumber(AnyHelpers obj) => !(obj.GetValue() is string) &&  !(obj.GetValue() is bool) && Information.IsNumeric(obj.GetValue());
+
+        internal static decimal AsNumber(AnyHelpers obj) => Convert.ToDecimal(obj.GetValue());
+
+        internal static bool IsString(AnyHelpers obj) => obj.GetValue() is string;
+        internal static string AsString(AnyHelpers obj) =>  obj.GetValue().ToString();
+
+        internal static bool IsNull(AnyHelpers obj) =>  obj.GetValue() == null;
 
 
-    }
-
-
-
-    public partial class Any : AnyHelpers
-    {
-      
-
-    }
-
-
-
-    public partial class Any<T> :AnyHelpers
-    {
-
-
-        public static object operator -(Any<T> any, object obj)
+        internal static bool IsFalsy(AnyHelpers any)
         {
-            if(obj is Any<T> objAny)
+            var nullchecker = (object)any;
+
+            //don't want to infinite loop with our == operator
+            if (nullchecker == null) return true;
+
+            var value = any.GetValue();
+
+            if (value == null) return true;
+
+            var isEmptyString = value is string && string.IsNullOrEmpty(value.ToString());
+            var isFalseString = value is string && value.ToString().Trim().ToLower() == "false";
+            var isFalse = value is bool tg && tg == false;
+            var isZeroString = value is string && value.ToString().Trim().ToLower() == "0";
+
+            if (IsNumber(any))
             {
-                //they are both numbers
-                if (IsNumber(any) && IsNumber(objAny))
-                {
-                    return AsNumber(any) - AsNumber(objAny);
-                }
-                return "NaN";
+                //next-level bullshittery
+                double x = Convert.ToDouble(value);
+                var isZero = x == 0;
+
+                if (isZero) return true;
             }
 
-            //they are both numbers
-            if (IsNumber(any) && IsNumber(obj))
-            {
-                return AsNumber(any) - AsNumber(obj);
-            }
-            return "NaN";
-        }
+            return isFalse || isEmptyString || isFalseString || isZeroString;
 
-        public static bool operator <(Any<T> any, object obj)
-        {
-            if(obj is Any<T> objAny)
-            {
-                //they are both numbers
-                if (IsNumber(any) && IsNumber(objAny))
-                {
-                    return AsNumber(any) < AsNumber(objAny);
-                }
-                //they are both bools
-                if (IsBool(any) && IsBool(objAny))
-                {
-                    var b1 = AsBool(any);
-
-                    if (b1)
-                    {
-                        return false;
-                    }
-                    return true; //true will always be > false and < true
-                }
-                //they are both dates
-                if (IsDate(any) && IsDate(objAny))
-                {
-                    var date1 = (DateTimeOffset)(object)any.Value;
-                    var date2 = (DateTimeOffset)(object)objAny.Value;
-                    return date1 < date2;
-                }
-                //they are both strings
-                if (IsString(any) && IsString(objAny))
-                {
-                    var string1 = any.Value.ToString();
-                    var s2 = objAny.Value.ToString();
-
-                    return AnyHelpers.IsLessThan(string1, s2);
-
-                }
-                //use falsey check by default
-                return any < objAny;
-            }
-
-            //they are both numbers
-            if (IsNumber(any) && Information.IsNumeric(obj))
-            {
-                return AsNumber(any) < AsNumber(obj);
-            }
-            if (IsBool(any) && obj is bool)
-            {
-                var b1 = AsBool(any);
-
-                if (b1)
-                {
-                    return false;
-                }
-                return true; //true will always be > false and < true
-            }
-            if (IsDate(any) && IsDate(new Any(obj)))
-            {
-                var date1 = (DateTimeOffset) (object)any.Value;
-                var date2 = (DateTimeOffset)obj;
-                return date1 < date2;
-            }
-            if (IsString(any) && obj is string string2)
-            {
-                var string1 = any.Value.ToString();
-
-                return AnyHelpers.IsLessThan(string1, string2);
-
-            }
-            return false;
-        }
-
-        public static bool operator >(Any<T> any, object obj)
-        {
-            if(obj is Any<T> objAny)
-            {
-                //they are both numbers
-                if (IsNumber(any) && IsNumber(objAny))
-                {
-                    return AsNumber(any) > AsNumber(objAny);
-                }
-                if (IsBool(any) && IsBool(objAny))
-                {
-                    var b2 = AsBool(objAny);
-                    if (b2)
-                    {
-                        return false;
-                    }
-                    return true; //true will always be > false and < true
-                }
-                if (IsDate(any) && IsDate(objAny))
-                {
-                    var date1 = (DateTimeOffset)(object)any.Value;
-                    var date2 = (DateTimeOffset)(object)objAny.Value;
-                    return date1 > date2;
-                }
-                if (IsString(any) && IsString(objAny))
-                {
-                    var string1 = any.Value.ToString();
-                    var s2 = objAny.Value.ToString();
-
-                    return !AnyHelpers.IsLessThan(string1, s2);
-
-                }
-                return any > obj;
-            }
-
-            //they are both numbers
-            if (IsNumber(any) &&  IsNumber(obj))
-            {
-                return AsNumber(any) >AsNumber(obj);
-            }
-            if (IsBool(any) && obj is bool b)
-            {
-                if (b)
-                {
-                    return false;
-                }
-                return true; //true will always be > false and < true
-            }
-            if (IsDate(any) && IsDate(new Any(obj)))
-            {
-                var date1 = (DateTimeOffset)(object)any.Value;
-                var date2 = (DateTimeOffset)obj;
-                return date1 > date2;
-            }
-            if (IsString(any) && obj is string string2)
-            {
-                var string1 = any.Value.ToString();
-
-                return !AnyHelpers.IsLessThan(string1, string2);
-
-            }
-            return true;
-        }
-
-        public static bool operator ==(Any<T> any, object obj)
-        {
-            if(obj is Any<T> objAny)
-            {
-                //they are both numbers
-                if (IsNumber(any) && IsNumber(objAny))
-                {
-                    return AsNumber(any) == AsNumber(objAny);
-                }
-                //left is number right is string
-                if (IsNumber(any) && IsString(objAny))
-                {
-                    var anynumber = AsNumber(any);
-
-                    if (decimal.TryParse(objAny.Value.ToString(), out decimal number2))
-                    {
-                        return anynumber == number2;
-                    }
-                    return false;
-                }
-
-                //right is number left is string
-                if (IsString(any) && IsNumber(objAny))
-                {
-                    var number2 = AsNumber(objAny);
-                    if (decimal.TryParse(any.Value.ToString(), out decimal number1))
-                    {
-                        return number1 == number2;
-                    }
-                    return false;
-                }
-
-                //both are bools
-                if (IsBool(any) && IsBool(objAny))
-                {
-                    return AsBool(any) == AsBool(objAny);
-                }
-                //left is bool right is string
-                if (IsBool(any) && IsString(objAny))
-                {
-                    if (AsBool(any) == true && objAny.Value.ToString() == "true")
-                    {
-                        return true;
-                    }
-                    if (AsBool(any) == false && objAny.Value.ToString() == "false")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-
-                //right is bool left is string
-                if (IsString(any) && IsBool(objAny))
-                {
-                    if (AsBool(objAny) == true && any.Value.ToString() == "true")
-                    {
-                        return true;
-                    }
-                    if (AsBool(objAny) == false && any.Value.ToString() == "false")
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-
-                //left is number and right is bool
-                if (IsNumber(any) && IsBool(objAny))
-                {
-                    if (AsBool(objAny) == true && AsNumber(any) == 1)
-                    {
-                        return true;
-                    }
-                    if (AsBool(objAny) == false && AsNumber(any) == 0)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-
-
-                //right is number and left is bool
-                if (IsBool(any) && IsNumber(objAny))
-                {
-                    if (AsBool(any) == true && AsNumber(objAny) == 1)
-                    {
-                        return true;
-                    }
-                    if (AsBool(any) == false && AsNumber(objAny) == 0)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                //both are dates
-                if (IsDate(any) && IsDate(objAny))
-                {
-                    var date1 = (DateTimeOffset)(object)any.Value;
-                    var date2 = (DateTimeOffset)(object)objAny.Value;
-                    return date1 == date2;
-                }
-                //both are strings
-                if (IsString(any) && IsString(objAny))
-                {
-                    var string1 = any.Value.ToString();
-                    var string2 = objAny.Value.ToString();
-
-                    return string1.Equals(string2);
-                }
-
-                return false;
-            }
-
-
-            //they are both numbers
-            if (IsNumber(any) && IsNumber(obj))
-            {
-                return AsNumber(any) == AsNumber(obj);
-            }
-            //left is number right is string
-            if (IsNumber(any) && obj is string s)
-            {
-                var anynumber = AsNumber(any);
-
-                if (decimal.TryParse(obj.ToString(), out decimal number2))
-                {
-                    return anynumber == number2;
-                }
-                return false;
-            }
-
-            //right is number left is string
-            if (IsString(any) && Information.IsNumeric(obj))
-            {
-                var number2 = Convert.ToDouble(obj);
-                if (double.TryParse(any.Value.ToString(), out double number1))
-                {
-                    return number1 == number2;
-                }
-                return false;
-            }
-
-            //both are bools
-            if (IsBool(any) && obj is bool b)
-            {
-                return AsBool(any) == b;
-            }
-            if (IsDate(any) && IsDate(new Any(obj)))
-            {
-                var date1 = (DateTimeOffset)(object)any.Value;
-                var date2 = (DateTimeOffset)obj;
-                return date1 == date2;
-            }
-            if (IsString(any) && IsString(new Any(obj)))
-            {
-                var string1 = any.Value.ToString();
-                var string2 = obj.ToString();
-
-                return string1.Equals(string2);
-            }
-
-            return false;
-        }
-
-        public static bool operator !=(Any<T> any, object obj)
-        {
-            return !(any == obj);
-        }
-
-        public static bool operator <=(Any<T> any, object obj)
-        {
-            return (any < obj) || any == obj;
-        }
-        public static bool operator >=(Any<T> any, object obj)
-        {
-
-            return (any < obj) || any == obj;
         }
 
     }

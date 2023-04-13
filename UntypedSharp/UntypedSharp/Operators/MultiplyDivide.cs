@@ -28,9 +28,13 @@ namespace UntypedSharp
             }
             return "NaN";
         }
+
+     
+
     }
     public partial class Any<T> : AnyHelpers
     {
+       
         public static object operator *(Any<T> left, object obj)
         {
             //they are both numbers
@@ -50,12 +54,12 @@ namespace UntypedSharp
             }
             return "NaN";
         }
-        public static object operator /(Any<T> left, object obj)
+        public static object operator /(Any<T> left, object right)
         {
             //they are both numbers
-            if (IsNumber(left) && IsNumber(obj))
+            if (IsNumber(left) && IsNumber(right))
             {
-                return AsNumber(left) / AsNumber(obj);
+                return AsNumber(left) / AsNumber(right);
             }
             return "NaN";
         }

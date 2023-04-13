@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UntypedSharp
+namespace UntypedSharp.depracated
 {
-    public partial class Any<T>
+    public partial class Any
     {
-          public T Value { get; set; }
-
+        
         private Dictionary<string, object> addHocProperties = new Dictionary<string, object>();
 
         public object this[string key]
@@ -40,6 +39,5 @@ namespace UntypedSharp
                 addHocProperties.Add(key, value);
             }
         }
-
     }
 }

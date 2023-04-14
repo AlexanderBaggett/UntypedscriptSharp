@@ -4,9 +4,24 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>UntypedSharp</Title>
+    <Authors>Alexander Baggett</Authors>
+    <Description>A C# Micro-framework that brings javascript like functionality to .NET</Description>
+    <Copyright>MIT</Copyright>
+    <PackageProjectUrl>https://github.com/AlexanderBaggett/UntypedscriptSharp</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AlexanderBaggett/UntypedscriptSharp</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>javascript, C#, any,</PackageTags>
+    <IncludeSymbols>True</IncludeSymbols>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>UntypedSharp</id>
+    <version>1.0.0</version>
+    <title>UntypedSharp</title>
+    <authors>Alexander Baggett</authors>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/AlexanderBaggett/UntypedscriptSharp</projectUrl>
+    <description>A C# Micro-framework that brings javascript like functionality to .NET</description>
+    <copyright>MIT</copyright>
+    <tags>javascript, C#, any,</tags>
+    <repository type="git" url="https://github.com/AlexanderBaggett/UntypedscriptSharp" />
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\bin\Debug\net6.0\UntypedSharp.pdb" target="lib\net6.0\UntypedSharp.pdb" />
+    <file src="C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\bin\Debug\net6.0\UntypedSharp.dll" target="lib\net6.0\UntypedSharp.dll" />
+    <file src="C:\repos\dotnet\UntypedscriptSharp\README.md" target="\README.md" />
+  </files>
+</package>

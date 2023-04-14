@@ -1,0 +1,12 @@
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.csproj.AssemblyReference.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.GeneratedMSBuildEditorConfig.editorconfig
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.AssemblyInfoInputs.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.AssemblyInfo.cs
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.csproj.CoreCompileInputs.cache
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\bin\Debug\net6.0\UntypedSharp.deps.json
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\bin\Debug\net6.0\UntypedSharp.dll
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\bin\Debug\net6.0\UntypedSharp.pdb
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.dll
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\refint\UntypedSharp.dll
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\UntypedSharp.pdb
+C:\repos\dotnet\UntypedscriptSharp\UntypedSharp\UntypedSharp\obj\Debug\net6.0\ref\UntypedSharp.dll

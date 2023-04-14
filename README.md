@@ -9,9 +9,24 @@
  
  
  ## Any
- A class representing the Javascript any type. (let the bullshittery commence)
+ A class representing the Javascript any type. (let the bullshittery commence) or as close as C# will let us emulate it.
  
  
- ## If (any)
+ ## Falsy checking
  We can simulate falsy checking in Javascript with C# and .Net
+ `Any<string> any = "stuff"`
+ `if(any)`  is equivalent to `if(any!= null || any != "")` etc
  
+
+ ## Adhoc properties
+`Any<string> any = "adsf"`
+`any["stuff"] = "more stuff";`
+
+## Operators
+
+`any > 10`
+`10 < any`
+`true > any`
+`any + "try this at home kids"`
+..etc
+

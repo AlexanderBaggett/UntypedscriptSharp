@@ -25,6 +25,13 @@ namespace UntypedSharp.Tests.Any_T
             any[propertyName] = propertyValue;
 
             Assert.Equal(propertyValue, any[propertyName]);
+
+
+            Any<T2> any2 = Anyvalue;
+
+            any2[propertyName] = propertyValue;
+
+            Assert.Equal(propertyValue, any2[propertyName]);
         }
     }
 }

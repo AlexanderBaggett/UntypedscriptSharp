@@ -20,13 +20,18 @@
 
  ## Adhoc properties
 `Any<string> any = "adsf"`
+
 `any["stuff"] = "more stuff";`
 
 ## Operators
 
 `any > 10`
+
 `10 < any`
+
 `true > any`
+
 `any + "try this at home kids"`
+
 ..etc
 

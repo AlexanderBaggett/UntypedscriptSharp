@@ -1,9 +1,4 @@
 ﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UntypedSharp
 {
@@ -22,8 +17,22 @@ namespace UntypedSharp
 
         internal static bool AsBool(Any<T> any) =>  Convert.ToBoolean(any.Value);
 
-        internal static bool IsNull(Any<T> any) => any.Value == null;
+        internal static bool IsNull(Any<T> any)
+        {
+            // Check if the value itself is null
+            if (any.Value == null)
+                return true;
 
+            if (any == null) return true;
+
+
+            // Additional checks to align more with JavaScript's notion of undefined
+            // If Value is a string, check for "undefined"
+            if (IsString(any) && any.Value.ToString().Trim().ToLower() == "undefined")
+                return true;
+
+            return false;
+        }
 
         private static bool IsFalsy(Any<T> any)
         {
@@ -41,8 +50,9 @@ namespace UntypedSharp
             var isFalseString = value is string && value.ToString().Trim().ToLower() == "false";
             var isFalse = value is bool tg && tg == false;
             var isZeroString =  value is string && value.ToString().Trim().ToLower() == "0";
+            var isUndefinedString = value is string && value.ToString().Trim().ToLower() == "undefined";
 
-            if(IsNumber(any))
+            if (IsNumber(any))
             {
                 //next-level bullshittery
                 double x = Convert.ToDouble(value);
@@ -51,7 +61,7 @@ namespace UntypedSharp
                 if(isZero) return true;
             }
 
-            return isFalse || isEmptyString || isFalseString || isZeroString;
+            return isFalse || isEmptyString || isFalseString || isZeroString || isUndefinedString;
 
         }
     }
